@@ -9,8 +9,31 @@ import { subscribeToHiveData, getMetricStatus, type HiveMetrics } from "@/lib/re
 import { getHistoricalData, storeHistoricalData, generateMockTrendData, type ChartDataPoint } from "@/lib/historical-data-utils"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { XAxis, YAxis, CartesianGrid, ResponsiveContainer, Line, LineChart, Legend } from "recharts"
+import { XAxis, YAxis, CartesianGrid, ResponsiveContainer, Scatter, ScatterChart, Legend } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+
+// Custom tooltip component for scatter chart
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-background border border-border rounded-lg p-3 shadow-lg">
+        <p className="font-medium text-foreground mb-2">{label}</p>
+        {payload.map((entry: any, index: number) => (
+          <div key={index} className="flex justify-between items-center gap-4 text-sm">
+            <span className="text-muted-foreground">{entry.name}:</span>
+            <span className="font-medium text-foreground">
+              {entry.name.includes('Weight') ? entry.value.toFixed(2) : entry.value.toFixed(3)}
+              {entry.name.includes('Temperature') ? '°C' : 
+               entry.name.includes('Humidity') ? '%' : 
+               entry.name.includes('Weight') ? 'kg' : ' ppm'}
+            </span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+  return null
+}
 
 const generateMockData = () => {
   const now = new Date()
@@ -274,41 +297,46 @@ export default function DashboardPage() {
             className="h-[350px]"
           >
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={trendData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent />} />
+              <ScatterChart data={trendData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <XAxis 
+                  dataKey="time" 
+                  tick={{ fontSize: 12 }}
+                  axisLine={{ stroke: '#e0e0e0' }}
+                  tickLine={{ stroke: '#e0e0e0' }}
+                />
+                <YAxis 
+                  tick={{ fontSize: 12 }}
+                  axisLine={{ stroke: '#e0e0e0' }}
+                  tickLine={{ stroke: '#e0e0e0' }}
+                />
+                <ChartTooltip content={<CustomTooltip />} />
                 <Legend />
-                <Line
-                  type="monotone"
+                <Scatter
                   dataKey="gasLevel"
-                  stroke="var(--color-gasLevel)"
+                  fill="var(--color-gasLevel)"
                   name="Gas Level (ppm)"
-                  strokeWidth={2}
+                  r={4}
                 />
-                <Line
-                  type="monotone"
+                <Scatter
                   dataKey="humidity"
-                  stroke="var(--color-humidity)"
+                  fill="var(--color-humidity)"
                   name="Humidity (%)"
-                  strokeWidth={2}
+                  r={4}
                 />
-                <Line
-                  type="monotone"
+                <Scatter
                   dataKey="temperature"
-                  stroke="var(--color-temperature)"
+                  fill="var(--color-temperature)"
                   name="Temperature (°C)"
-                  strokeWidth={2}
+                  r={4}
                 />
-                <Line
-                  type="monotone"
+                <Scatter
                   dataKey="weight"
-                  stroke="var(--color-weight)"
+                  fill="var(--color-weight)"
                   name="Weight (kg)"
-                  strokeWidth={2}
+                  r={4}
                 />
-              </LineChart>
+              </ScatterChart>
             </ResponsiveContainer>
           </ChartContainer>
         </CardContent>
