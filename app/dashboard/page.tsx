@@ -131,14 +131,14 @@ export default function DashboardPage() {
         </Link>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-5">
         <Card className="bg-green-50 border-green-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Hives</CardTitle>
-            <Hexagon className="h-4 w-4 text-green-600" />
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-xs font-medium">Active Hives</CardTitle>
+            <Hexagon className="h-3 w-3 text-green-600" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{loading ? "--" : activeHives}</div>
+          <CardContent className="pt-1">
+            <div className="text-lg font-bold">{loading ? "--" : activeHives}</div>
             <p className="text-xs text-muted-foreground">{totalHives} Total registered hives</p>
           </CardContent>
         </Card>
@@ -152,15 +152,15 @@ export default function DashboardPage() {
                 : "bg-red-50 border-red-200"
           }
         >
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Current Temperature</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-xs font-medium">Current Temperature</CardTitle>
             <Activity
-              className={`h-4 w-4 ${temperatureStatus === "optimal" ? "text-green-600" : temperatureStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
+              className={`h-3 w-3 ${temperatureStatus === "optimal" ? "text-green-600" : temperatureStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
             />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-1">
             <div
-              className={`text-2xl font-bold ${temperatureStatus === "optimal" ? "text-green-600" : temperatureStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
+              className={`text-lg font-bold ${temperatureStatus === "optimal" ? "text-green-600" : temperatureStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
             >
               {hiveStats.temperature}°C
             </div>
@@ -177,15 +177,15 @@ export default function DashboardPage() {
                 : "bg-red-50 border-red-200"
           }
         >
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Current Humidity</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-xs font-medium">Current Humidity</CardTitle>
             <Droplets
-              className={`h-4 w-4 ${humidityStatus === "optimal" ? "text-green-600" : humidityStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
+              className={`h-3 w-3 ${humidityStatus === "optimal" ? "text-green-600" : humidityStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
             />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-1">
             <div
-              className={`text-2xl font-bold ${humidityStatus === "optimal" ? "text-green-600" : humidityStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
+              className={`text-lg font-bold ${humidityStatus === "optimal" ? "text-green-600" : humidityStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
             >
               {hiveStats.humidity}%
             </div>
@@ -202,17 +202,17 @@ export default function DashboardPage() {
                 : "bg-red-50 border-red-200"
           }
         >
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Current Hive Weight</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-xs font-medium">Current Hive Weight</CardTitle>
             <Weight
-              className={`h-4 w-4 ${weightStatus === "optimal" ? "text-green-600" : weightStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
+              className={`h-3 w-3 ${weightStatus === "optimal" ? "text-green-600" : weightStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
             />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-1">
             <div
-              className={`text-2xl font-bold ${weightStatus === "optimal" ? "text-green-600" : weightStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
+              className={`text-lg font-bold ${weightStatus === "optimal" ? "text-green-600" : weightStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
             >
-              {hiveStats.weight}kg
+              {hiveStats.weight.toFixed(2)}kg
             </div>
             <p className="text-xs text-muted-foreground">Target weight: 12kg - 20kg</p>
           </CardContent>
@@ -227,13 +227,13 @@ export default function DashboardPage() {
                 : "bg-red-50 border-red-200"
           }
         >
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Gas Level</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
+            <CardTitle className="text-xs font-medium">Gas Level</CardTitle>
             <Wind
-              className={`h-4 w-4 ${gasStatus === "optimal" ? "text-green-600" : gasStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
+              className={`h-3 w-3 ${gasStatus === "optimal" ? "text-green-600" : gasStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
             />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-1">
             <div
               className={`text-2xl font-bold ${gasStatus === "optimal" ? "text-green-600" : gasStatus === "warning" ? "text-yellow-600" : "text-red-600"}`}
             >
